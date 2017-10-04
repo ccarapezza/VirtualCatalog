@@ -27,15 +27,29 @@ export class SearchResultPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchResultPage');
+    var code = this.navParams.get('code');
+    var description = this.navParams.get('description');
     var categoryId = this.navParams.get('categoryId');
-    this.cdsurApiProvider.getProducts(categoryId)
-    .then(results => {
-      this.products = results;
-    })
+    alert(code);
+    alert(description);
+    alert(categoryId);
+    if(code || description){
+      this.cdsurApiProvider.searchProducts(code, description)
+      .then(results => {
+        this.products = results;
+      })  
+    }else if(categoryId){
+      this.cdsurApiProvider.getProducts(categoryId)
+      .then(results => {
+        this.products = results;
+      })
+    }
   }
 
-  selectProduct() {
-    this.navCtrl.push(ProductDetailPage);
+  selectProduct(code) {
+    this.navCtrl.push(ProductDetailPage,{
+      code: code
+    });
   }
   
 }

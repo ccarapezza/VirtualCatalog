@@ -27,7 +27,10 @@ export class HomePage {
 	scanQr(){
 		this.barcodeScanner.scan().then(barcodeData => {
 			this.scannedCode = barcodeData.text;
-			this.navCtrl.push(ProductDetailPage);
+			var code = this.scannedCode.split("-")[1];
+			this.navCtrl.push(ProductDetailPage,{
+			  code: code
+			});
 		})
 	}
 

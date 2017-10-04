@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 */
 @Injectable()
 export class CdsurApiProvider {
-
+	//apiUrl = 'http://www.cdsurargentina.com.ar/cdsur-core/api/web/index.php';
 	apiUrl = 'http://localhost/cdsur-core/api/web/index.php';
 
 	constructor(public http: Http) {
@@ -37,5 +37,15 @@ export class CdsurApiProvider {
 		return this.http.get(this.apiUrl+'/categories/parent'+pId)
 			.map(res => res.json())
 			.toPromise();
+	}
+
+	getProduct(code) {
+		return this.http.get(this.apiUrl+'/products/code/'+code)
+			.map(res => res.json())
+			.toPromise();
+	}
+
+	searchProducts(code, description) {
+		return this.http.get(this.apiUrl+"/products/search?code="+code+"&description="+description).map(res => res.json()).toPromise();
 	}
 }

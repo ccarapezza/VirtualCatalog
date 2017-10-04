@@ -23,8 +23,13 @@ export class SearchPage {
     console.log('ionViewDidLoad SearchPage');
   }
 
-  search(){
-  	this.navCtrl.push(SearchResultPage);
+  search(code: string, description: string){
+    alert(code);
+    alert(description);
+  	this.navCtrl.push(SearchResultPage,{
+      code: code,
+      description: description
+    });
   }
 
 }

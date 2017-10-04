@@ -18,16 +18,16 @@
 
   <ion-item>
     <ion-avatar item-start>
-      <img src="assets/images/3.jpg">
+      <img src="http://localhost/cdsur-core/frontend/web/products-images/{{product.image_filename}}">
     </ion-avatar>
-    <h2>AUTOBRILLO NATURAL X 5 LTS.</h2>
-    <p>Cuidado de pisos - Brillo</p>
+
+    <h2>{{ product.description }}</h2>
   </ion-item>
 
-  <img src="assets/images/3.jpg">
+  <img src="http://localhost/cdsur-core/frontend/web/products-images/{{product.image_filename}}">
 
   <ion-card-content>
-    <p>Cera autobrillo para todo tipo de pisos lavables. Producto listo para usar.</p>
+    <button class="button-cds" ion-button block icon-left margin-vertical>Agregar al pedido</button>
   </ion-card-content>
 
 </ion-card>
