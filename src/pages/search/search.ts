@@ -24,8 +24,6 @@ export class SearchPage {
   }
 
   search(code: string, description: string){
-    alert(code);
-    alert(description);
   	this.navCtrl.push(SearchResultPage,{
       code: code,
       description: description
