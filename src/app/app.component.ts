@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController  } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -15,7 +15,7 @@ export class MyApp {
   
   rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public menuCtrl: MenuController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -25,10 +25,12 @@ export class MyApp {
   }
 
   login(){
-   this.nav.setRoot(LoginPage);
+   this.menuCtrl.close();
+   this.nav.push(LoginPage);
   }
 
   signup(){
-   this.nav.setRoot(SignupPage);
+   this.menuCtrl.close();
+   this.nav.push(SignupPage);
   }
 }
