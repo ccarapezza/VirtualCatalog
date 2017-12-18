@@ -3,6 +3,9 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+import { Events } from 'ionic-angular';
+
+
 /*
   Generated class for the CdsurApiProvider provider.
 
@@ -13,22 +16,87 @@ import 'rxjs/add/operator/toPromise';
 export class CdsurApiProvider {
 	//apiUrl = 'http://www.cdsurargentina.com.ar/cdsur-core/api/web/index.php';
 	apiUrl = 'http://localhost/cdsur-core/api/web/index.php';
-
-	constructor(public http: Http) {
+	isLoggedin: boolean;
+    AuthToken;
+    
+    constructor(public http: Http, public events: Events) {
 		console.log('Hello CdsurApiProvider Provider');
-	}
+        this.http = http;
+        this.isLoggedin = false;
+        this.AuthToken = null;
+		events.publish('hideHeader', { isHidden: true });
+    }
+
+    checkToken() {
+    	if(localStorage.getItem('access_token'))
+    	{
+	    	let options = new RequestOptions({ headers: this._getHeaders()});
+	    	this.http.post(this.apiUrl+'/securities/user-info', {}, options).subscribe(res => { 
+				if(res.ok){
+					console.log("Check existing TOKEN OK!");
+	                localStorage.setItem('user-info', JSON.stringify(res.json()));
+	                this.events.publish('hideHeader', { isHidden: false});
+	            }
+	            else
+	            {
+	            	this.destroyUserCredentials();
+	            }
+
+			} , (err) =>{
+				this.destroyUserCredentials();
+			});
+    	}
+    	else
+    	{
+    		this.destroyUserCredentials();
+    	}
+    }
+    
+    storeUserCredentials(token) {
+        localStorage.setItem('access_token', token);
+        this.useCredentials(token);
+    }
+    
+    useCredentials(token) {
+        this.isLoggedin = true;
+        this.AuthToken = token;
+    }
+    
+    loadUserCredentials() {
+        var token = localStorage.getItem('access_token');
+		this.events.publish('hideHeader', { isHidden: false});
+        this.useCredentials(token);
+    }
+    
+    destroyUserCredentials() {
+        this.isLoggedin = false;
+        this.AuthToken = null;
+        this.events.publish('hideHeader', { isHidden: true});
+        localStorage.clear();
+    }
 
 	login(username, password) {
 		return new Promise((resolve, reject) => {
 			let options = new RequestOptions({ headers: this._getHeaders()});
-			let userData = {"username": username, "password" : password};
-			this.http.post(this.apiUrl+'/securities/login', userData).subscribe(res => { 
- 				resolve(res.json());
+			let userData = {"login": username, "password" : password};
+
+			this.http.post(this.apiUrl+'/securities/login', userData, options).subscribe(res => { 
+				if(res.ok){
+                    this.storeUserCredentials(res.json().access_token);
+                    resolve(true);
+                }
+                else
+                {
+                	this.destroyUserCredentials();
+                    resolve(false);
+                }
+
 			} , (err) =>{
+				this.destroyUserCredentials();
 				reject(err);
 			});
 		});
-	}
+	}	
 
 	getProducts(categoryId) {
 		var cId = "";
@@ -60,6 +128,11 @@ export class CdsurApiProvider {
 	_getHeaders() {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
+	    //headers.append('X-Requested-With', 'XMLHttpRequest');
+	    this.loadUserCredentials();
+	    if(this.AuthToken){
+	        headers.append('Authorization', 'Bearer ' +this.AuthToken);
+	    }
 	    return headers;
 	 }
 
@@ -77,4 +150,6 @@ export class CdsurApiProvider {
 	    return this.http.post(url, body, headers).map(res => res.json()).toPromise();
 		//return this.http.get(this.apiUrl+"/products/search"+params).map(res => res.json()).toPromise();
 	}
+
+	
 }

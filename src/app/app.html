@@ -5,7 +5,7 @@
     </ion-toolbar>
   </ion-header>
 
-	<ion-content padding id="welcome">
+	<ion-content padding id="welcome" *ngIf="footerIsHidden">
 		<div class="item item-image logo-container">
 		    <img src="assets/images/logo.png" class="logo" margin>
 		</div>
@@ -14,8 +14,34 @@
 		<button ion-button block class="marginTop" (click)="signup()">Registrarse</button>
 		<button ion-button block color="lightprimary" (click)="login()">Login</button>
 	</ion-content>
+	<ion-content padding id="welcome-bis" *ngIf="!footerIsHidden">
+		<div class="item item-image logo-container">
+		    <img src="assets/images/logo.png" class="logo" margin>
+		</div>
+		<div>Bienvenido</div>
+
+		<button ion-button block class="marginTop" (click)="logout()">Cerrar sesión</button>
+	</ion-content>
 
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+
+<ion-footer *ngIf="!footerIsHidden">
+    <ion-grid>
+        <ion-row no-padding no-margin>
+            <ion-col col-6 no-padding>
+                <button ion-button full clear icon-only>
+				  <ion-icon name="cart"></ion-icon>
+				  <ion-badge color="secondary" class="icon-badge">0</ion-badge>
+				</button>
+            </ion-col>
+            <ion-col col-6 no-padding>
+                <button ion-button full clear icon-only>
+                	<ion-icon name="contact"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>
