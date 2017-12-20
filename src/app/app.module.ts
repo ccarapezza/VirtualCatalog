@@ -12,7 +12,7 @@ import { SearchPage } from '../pages/search/search';
 import { SearchResultPage } from '../pages/search-result/search-result';
 import { ProductDetailPage } from '../pages/product-detail/product-detail';
 import { PlanIntegralHigienePage } from '../pages/plan-integral-higiene/plan-integral-higiene';
-import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { CartPage } from '../pages/cart/cart';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { CdsurApiProvider } from '../providers/cdsur-api/cdsur-api';
 import { HttpModule } from '@angular/http';
@@ -26,13 +26,13 @@ import { HttpModule } from '@angular/http';
     SearchPage,
     SearchResultPage,
     ProductDetailPage,
-    PlanIntegralHigienePage
+    PlanIntegralHigienePage,
+    CartPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule,
-    NgxQRCodeModule
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -43,7 +43,8 @@ import { HttpModule } from '@angular/http';
     SearchPage,
     SearchResultPage,
     ProductDetailPage,
-    PlanIntegralHigienePage
+    PlanIntegralHigienePage,
+    CartPage
   ],
   providers: [
     StatusBar,

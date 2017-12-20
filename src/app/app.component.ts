@@ -8,6 +8,7 @@ import { AlertController } from 'ionic-angular';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { CartPage } from '../pages/cart/cart';
 
 import { Events } from 'ionic-angular';
 
@@ -52,6 +53,10 @@ export class MyApp {
     this.menuCtrl.close();
     this.nav.push(HomePage);
     this.showMessage("Sesión cerrada", "Se ha cerrado la sesión");
+  }
+  
+  goToCart() {
+    this.nav.push(CartPage);
   }
 
   showMessage(title, message = "") {
