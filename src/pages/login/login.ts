@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
 import { CdsurApiProvider } from '../../providers/cdsur-api/cdsur-api';
 import { HomePage } from '../home/home';
 
@@ -20,7 +21,7 @@ export class LoginPage {
   responseData : any;
   userData = {"username":"", "password": ""};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public cdsurApiProvider: CdsurApiProvider, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public cdsurApiProvider: CdsurApiProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -28,7 +29,13 @@ export class LoginPage {
   }
 
   login() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: 'Cargando, Espere por favor...'
+    });
+    loading.present();
   	this.cdsurApiProvider.login(this.userData.username, this.userData.password).then((result) =>{
+      loading.dismiss();
       if(result){
         this.showMessage("Bienvenido!", "Ahora podrá realizar pedidos");
   		  this.navCtrl.push(HomePage);
@@ -36,6 +43,7 @@ export class LoginPage {
         this.showMessage("Acceso Denegado", "Nombre de usuario y/o contraseña incorrectos.");
       }
   	}, (err) =>{
+      loading.dismiss();
       this.showMessage("Ha ocurrido un error", "Verifique su conexión.");
   	});
   }

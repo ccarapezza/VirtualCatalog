@@ -28,7 +28,7 @@ export class SignupPage {
 	signup() {
 		let loading = this.loadingCtrl.create({
 			spinner: 'hide',
-			content: 'Loading Please Wait...'
+			content: 'Cargando, Espere por favor...'
 		});
 		loading.present();
 		this.cdsurApiProvider.signup(this.signupForm.email, this.signupForm.username, this.signupForm.password).then((result) =>{

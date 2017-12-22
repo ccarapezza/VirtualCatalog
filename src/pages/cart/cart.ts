@@ -18,9 +18,8 @@ import { Events } from 'ionic-angular';
   templateUrl: 'cart.html',
 })
 export class CartPage {
-	public cart: Array<Object> = new Array();
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public cartProvider: CartProvider, public events: Events) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public cartProvider: CartProvider, public cdsurApiProvider: CdsurApiProvider, public events: Events) {
 	}
 
 	getCartData(){
@@ -42,6 +41,15 @@ export class CartPage {
 
 	removeProduct(product){
 		this.cartProvider.removeProduct(product);
+	}
+
+	sendCart(){
+		this.cdsurApiProvider.sendCart(this.cartProvider.getCartData());
+		this.cartProvider.clearCart();
+	}
+
+	clearCart(){
+		this.cartProvider.clearCart();
 	}
 
 	ionViewDidLoad() {

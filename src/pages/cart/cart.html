@@ -41,14 +41,20 @@
 </ion-content>
 
 <ion-footer>
-	<ion-toolbar>
-	    <button ion-button icon-only color="danger">
-	    	<ion-icon name="trash" ></ion-icon>
-		  	<ion-label>Vacia carro</ion-label>
-	    </button>
-	    <button default ion-button item-right color="primary" item-right>
-			<ion-icon name="send"></ion-icon>
-			<ion-label>Enviar pedido</ion-label>
-		</button>
-	</ion-toolbar>
+    <ion-grid>
+        <ion-row no-padding no-margin>
+            <ion-col col-6 no-padding style="text-align: center;">
+                <button ion-button outline color="danger" (click)="clearCart()">
+                	<ion-icon name="trash"></ion-icon>
+                	<span style="margin-left: 10px;">Vaciar Carro</span>
+                </button>
+            </ion-col>
+            <ion-col col-6 no-padding style="text-align: center;">
+                <button ion-button outline color="primary"  (click)="sendCart()">
+				  <ion-icon name="send" right-margin></ion-icon>
+				  <span style="margin-left: 10px;">Enviar Pedido</span>
+				</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-footer>

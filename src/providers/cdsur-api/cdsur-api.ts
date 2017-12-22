@@ -14,8 +14,8 @@ import { Events } from 'ionic-angular';
 */
 @Injectable()
 export class CdsurApiProvider {
-	apiUrl = 'http://www.cdsurargentina.com.ar/cdsur-core/api/web/index.php';
-	//apiUrl = 'http://localhost/cdsur-core/api/web/index.php';
+	//apiUrl = 'http://www.cdsurargentina.com.ar/cdsur-core/api/web/index.php';
+	apiUrl = 'http://localhost/cdsur-core/api/web/index.php';
 	isLoggedin: boolean;
     AuthToken;
     
@@ -119,8 +119,22 @@ export class CdsurApiProvider {
 		});
 	}	
 
-	sendCart() {
+	sendCart(cart) {
+		return new Promise((resolve, reject) => {
+			let options = new RequestOptions({ headers: this._getHeaders()});
+			this.http.post(this.apiUrl+'/carts/send', {cart: cart}, options).subscribe(res => { 
+				if(res.ok){
+                    resolve(true);
+                }
+                else
+                {
+                    resolve(false);
+                }
 
+			} , (err) =>{
+				reject(err);
+			});
+		});
 	}
 
 	getProducts(categoryId) {
@@ -156,7 +170,7 @@ export class CdsurApiProvider {
 	    //headers.append('X-Requested-With', 'XMLHttpRequest');
 	    this.loadUserCredentials();
 	    if(this.AuthToken){
-	        headers.append('Authorization', 'Bearer ' +this.AuthToken);
+	        headers.append('cdsur-token', 'Bearer ' +this.AuthToken);
 	    }
 	    return headers;
 	 }
@@ -170,9 +184,9 @@ export class CdsurApiProvider {
 		}
 
 		let url = this.apiUrl+"/products/searchpost";
-	    let headers = this._getHeaders();
+	    let options = new RequestOptions({ headers: this._getHeaders()});
 	    let body = { 'description' : description};
-	    return this.http.post(url, body, headers).map(res => res.json()).toPromise();
+	    return this.http.post(url, body, options).map(res => res.json()).toPromise();
 		//return this.http.get(this.apiUrl+"/products/search"+params).map(res => res.json()).toPromise();
 	}
 }

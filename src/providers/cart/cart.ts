@@ -36,6 +36,11 @@ export class CartProvider {
 		return this.cart;
 	}
 
+	clearCart(){
+		this.cart = new Array();
+		localStorage.setItem('cart', JSON.stringify(this.cart));
+	}
+
 	addProduct(product, quantity = 1) {
 		let index = this.findProductInCart(product);
 
