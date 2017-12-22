@@ -15,6 +15,7 @@ import { PlanIntegralHigienePage } from '../pages/plan-integral-higiene/plan-int
 import { CartPage } from '../pages/cart/cart';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { CdsurApiProvider } from '../providers/cdsur-api/cdsur-api';
+import { CartProvider } from '../providers/cart/cart';
 import { HttpModule } from '@angular/http';
 
 @NgModule({
@@ -51,7 +52,8 @@ import { HttpModule } from '@angular/http';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BarcodeScanner,
-    CdsurApiProvider
+    CdsurApiProvider,
+    CartProvider
   ]
 })
 export class AppModule {}

@@ -3,6 +3,7 @@ import { Nav, Platform, MenuController  } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CdsurApiProvider } from '../providers/cdsur-api/cdsur-api';
+import { CartProvider } from '../providers/cart/cart';
 import { AlertController } from 'ionic-angular';
 
 import { HomePage } from '../pages/home/home';
@@ -16,26 +17,43 @@ import { Events } from 'ionic-angular';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  public footerIsHidden: boolean = false;
+  public isUserLogged: boolean = false;
   public userInfo: Object = false;
 
   @ViewChild(Nav) nav: Nav;
   
   rootPage:any = HomePage;
+  showMainFooter: boolean = true;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public menuCtrl: MenuController, public events: Events, public cdsurApiProvider: CdsurApiProvider, private alertCtrl: AlertController) {
+  constructor(
+    platform: Platform, 
+    statusBar: StatusBar, 
+    splashScreen: SplashScreen, 
+    private alertCtrl: AlertController, 
+    public menuCtrl: MenuController, 
+    public events: Events,
+    public cdsurApiProvider: CdsurApiProvider, 
+    public cartProvider: CartProvider) {
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
     });
-    events.subscribe('hideHeader', (data) => {
-        this.footerIsHidden = data.isHidden;
+    events.subscribe('user:login', (logged) => {
+        this.isUserLogged = logged;
+    })
+    events.subscribe('template:show-footer', (show) => {
+        this.showMainFooter = show;
     })
     cdsurApiProvider.checkToken();
     this.userInfo = JSON.parse(localStorage.getItem('user-info'));
     ;
+  }
+
+  ionViewDidLoad() {
+    console.log('MENU LOAD');
   }
 
   login(){
@@ -57,6 +75,26 @@ export class MyApp {
   
   goToCart() {
     this.nav.push(CartPage);
+  }
+
+  getUsername() {
+    var userInfo = JSON.parse(localStorage.getItem('user-info'));
+    if(userInfo == null)
+      return "ANONYMUS";
+    else
+      return userInfo.username;
+  }
+
+  getUserEmail() {
+    var userInfo = JSON.parse(localStorage.getItem('user-info'));
+    if(userInfo == null)
+      return "ANONYMUS";
+    else
+      return userInfo.email;
+  }
+
+  getCartProductsCount() {
+    return this.cartProvider.getCartData().length;
   }
 
   showMessage(title, message = "") {

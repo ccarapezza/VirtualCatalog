@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProductDetailPage } from '../product-detail/product-detail';
+import { CdsurApiProvider } from '../../providers/cdsur-api/cdsur-api';
 /**
  * Generated class for the SearchResultPage page.
  *
@@ -17,15 +18,35 @@ import { ProductDetailPage } from '../product-detail/product-detail';
  * on Ionic pages and navigation.
  */
 var SearchResultPage = (function () {
-    function SearchResultPage(navCtrl, navParams) {
+    function SearchResultPage(navCtrl, navParams, cdsurApiProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.cdsurApiProvider = cdsurApiProvider;
+        this.products = [];
     }
     SearchResultPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
         console.log('ionViewDidLoad SearchResultPage');
+        var code = this.navParams.get('code');
+        var description = this.navParams.get('description');
+        var categoryId = this.navParams.get('categoryId');
+        if (code || description) {
+            this.cdsurApiProvider.searchProducts(code, description)
+                .then(function (results) {
+                _this.products = results;
+            });
+        }
+        else if (categoryId) {
+            this.cdsurApiProvider.getProducts(categoryId)
+                .then(function (results) {
+                _this.products = results;
+            });
+        }
     };
-    SearchResultPage.prototype.selectProduct = function () {
-        this.navCtrl.push(ProductDetailPage);
+    SearchResultPage.prototype.selectProduct = function (code) {
+        this.navCtrl.push(ProductDetailPage, {
+            code: code
+        });
     };
     return SearchResultPage;
 }());
@@ -35,7 +56,9 @@ SearchResultPage = __decorate([
         selector: 'page-search-result',
         templateUrl: 'search-result.html',
     }),
-    __metadata("design:paramtypes", [NavController, NavParams])
+    __metadata("design:paramtypes", [NavController,
+        NavParams,
+        CdsurApiProvider])
 ], SearchResultPage);
 export { SearchResultPage };
 //# sourceMappingURL=search-result.js.map

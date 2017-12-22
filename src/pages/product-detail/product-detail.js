@@ -9,6 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CdsurApiProvider } from '../../providers/cdsur-api/cdsur-api';
+import { CartProvider } from '../../providers/cart/cart';
 /**
  * Generated class for the ProductDetailPage page.
  *
@@ -16,12 +18,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * on Ionic pages and navigation.
  */
 var ProductDetailPage = (function () {
-    function ProductDetailPage(navCtrl, navParams) {
+    function ProductDetailPage(navCtrl, navParams, cdsurApiProvider, cartProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.cdsurApiProvider = cdsurApiProvider;
+        this.cartProvider = cartProvider;
+        this.product = {};
     }
     ProductDetailPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
         console.log('ionViewDidLoad ProductDetailPage');
+        var code = this.navParams.get('code');
+        this.cdsurApiProvider.getProduct(code)
+            .then(function (results) {
+            _this.product = results;
+        });
+    };
+    ProductDetailPage.prototype.addProduct = function (product) {
+        this.cartProvider.addProduct(product);
     };
     return ProductDetailPage;
 }());
@@ -31,7 +45,7 @@ ProductDetailPage = __decorate([
         selector: 'page-product-detail',
         templateUrl: 'product-detail.html',
     }),
-    __metadata("design:paramtypes", [NavController, NavParams])
+    __metadata("design:paramtypes", [NavController, NavParams, CdsurApiProvider, CartProvider])
 ], ProductDetailPage);
 export { ProductDetailPage };
 //# sourceMappingURL=product-detail.js.map

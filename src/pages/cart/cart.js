@@ -9,36 +9,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SearchResultPage } from '../search-result/search-result';
+import { CartProvider } from '../../providers/cart/cart';
 /**
- * Generated class for the SearchPage page.
+ * Generated class for the CartPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var SearchPage = (function () {
-    function SearchPage(navCtrl, navParams) {
+var CartPage = (function () {
+    function CartPage(navCtrl, navParams, cartProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.cartProvider = cartProvider;
+        this.cart = new Array();
     }
-    SearchPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad SearchPage');
+    CartPage.prototype.getCartData = function () {
+        return this.cartProvider.
+        ;
+        return JSON.parse(localStorage.getItem('cart'));
     };
-    SearchPage.prototype.search = function (code, description) {
-        this.navCtrl.push(SearchResultPage, {
-            code: code,
-            description: description
-        });
+    CartPage.prototype.removeProduct = function (product) {
+        this.cartProvider.removeProduct(product);
     };
-    return SearchPage;
+    CartPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad CartPage');
+    };
+    return CartPage;
 }());
-SearchPage = __decorate([
+CartPage = __decorate([
     IonicPage(),
     Component({
-        selector: 'page-search',
-        templateUrl: 'search.html',
+        selector: 'page-cart',
+        templateUrl: 'cart.html',
     }),
-    __metadata("design:paramtypes", [NavController, NavParams])
-], SearchPage);
-export { SearchPage };
-//# sourceMappingURL=search.js.map
+    __metadata("design:paramtypes", [NavController, NavParams, CartProvider])
+], CartPage);
+export { CartPage };
+//# sourceMappingURL=cart.js.map

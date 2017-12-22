@@ -9,36 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SearchResultPage } from '../search-result/search-result';
 /**
- * Generated class for the SearchPage page.
+ * Generated class for the SignupPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var SearchPage = (function () {
-    function SearchPage(navCtrl, navParams) {
+var SignupPage = (function () {
+    function SignupPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
     }
-    SearchPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad SearchPage');
+    SignupPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad SignupPage');
     };
-    SearchPage.prototype.search = function (code, description) {
-        this.navCtrl.push(SearchResultPage, {
-            code: code,
-            description: description
-        });
-    };
-    return SearchPage;
+    return SignupPage;
 }());
-SearchPage = __decorate([
+SignupPage = __decorate([
     IonicPage(),
     Component({
-        selector: 'page-search',
-        templateUrl: 'search.html',
+        selector: 'page-signup',
+        templateUrl: 'signup.html',
     }),
     __metadata("design:paramtypes", [NavController, NavParams])
-], SearchPage);
-export { SearchPage };
-//# sourceMappingURL=search.js.map
+], SignupPage);
+export { SignupPage };
+//# sourceMappingURL=signup.js.map

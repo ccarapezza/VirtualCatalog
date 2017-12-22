@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { AlertController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
+import { CdsurApiProvider } from '../../providers/cdsur-api/cdsur-api';
+import { HomePage } from '../home/home';
 /**
  * Generated class for the SignupPage page.
  *
@@ -14,12 +17,40 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'signup.html',
 })
 export class SignupPage {
+	signupForm = {"email":"", "username":"", "password": "", "passwordCheck": ""};
+	constructor(public navCtrl: NavController, public navParams: NavParams, public cdsurApiProvider: CdsurApiProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
+	}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+	ionViewDidLoad() {
+		console.log('ionViewDidLoad SignupPage');
+	}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
-  }
+	signup() {
+		let loading = this.loadingCtrl.create({
+			spinner: 'hide',
+			content: 'Loading Please Wait...'
+		});
+		loading.present();
+		this.cdsurApiProvider.signup(this.signupForm.email, this.signupForm.username, this.signupForm.password).then((result) =>{
+			loading.dismiss();
+			if(result){
+				this.showMessage("Usuario Registrado!", "Revise su email para confirmar la cuenta");
+				this.navCtrl.push(HomePage);
+			}else{
+				this.showMessage("Error", "Comuniquese con el administrador.");
+			}
+		}, (err) =>{
+			loading.dismiss();
+			this.showMessage("Ha ocurrido un error", "Verifique su conexión.");
+		});
+	}
 
+	showMessage(title, message = "") {
+		let alert = this.alertCtrl.create({
+			title: title,
+			message: message,
+			buttons: ['Ok']
+		});
+		alert.present();
+	}
 }

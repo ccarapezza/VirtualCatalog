@@ -16,19 +16,39 @@
 <ion-content>
 	<ion-list>
 		<ion-list-header>Productos</ion-list-header>
-		<ion-item *ngFor="let product of ['foo', 'bar']">
-			<ion-avatar item-start>
-				<img src="http://www.cdsurargentina.com.ar/cdsur-core/frontend/web/products-images/20161114151520_secador.jpg" />
-			</ion-avatar>
-			<ion-label class="label label-md">
-				<h2>SECADOR GOMA BLANCA 30 CM</h2>
-				<p>HERRAMIENTAS DE LIMPIEZA</p>
-			</ion-label>
-			<div item-right>
-				<ion-icon name="remove-circle"></ion-icon>
-				<input type="number" class="product-quantity">
-				<ion-icon name="add-circle"></ion-icon>
-			</div>
-		</ion-item>
+		<ion-item-sliding *ngFor="let productRow of getCartData(); let i = index" [attr.data-index]="i">
+			<ion-item >
+				<ion-thumbnail  item-start>
+					<img src="http://www.cdsurargentina.com.ar/cdsur-core/frontend/web/products-images/{{productRow.product.image_filename}}">
+				</ion-thumbnail >
+				<ion-label class="label label-md">
+					<h2>{{productRow.product.description}}</h2>
+					
+				</ion-label>
+				<div item-right>
+					<ion-icon name="remove-circle" (click)="oneLess(productRow)"></ion-icon>
+					<input [(ngModel)]="productRow.quantity" (change)="changeQuantity()" type="number" class="product-quantity">
+					<ion-icon name="add-circle" (click)="oneMore(productRow)"></ion-icon>
+				</div>
+			</ion-item>
+			<ion-item-options side="right">
+				<button color="danger" ion-button class="trash-button" (click)="removeProduct(product)">
+					<ion-icon name="trash"></ion-icon>
+				</button>
+			</ion-item-options>
+		</ion-item-sliding>
 	</ion-list>
 </ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+	    <button ion-button icon-only color="danger">
+	    	<ion-icon name="trash" ></ion-icon>
+		  	<ion-label>Vacia carro</ion-label>
+	    </button>
+	    <button default ion-button item-right color="primary" item-right>
+			<ion-icon name="send"></ion-icon>
+			<ion-label>Enviar pedido</ion-label>
+		</button>
+	</ion-toolbar>
+</ion-footer>

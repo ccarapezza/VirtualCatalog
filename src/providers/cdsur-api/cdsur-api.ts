@@ -14,8 +14,8 @@ import { Events } from 'ionic-angular';
 */
 @Injectable()
 export class CdsurApiProvider {
-	//apiUrl = 'http://www.cdsurargentina.com.ar/cdsur-core/api/web/index.php';
-	apiUrl = 'http://localhost/cdsur-core/api/web/index.php';
+	apiUrl = 'http://www.cdsurargentina.com.ar/cdsur-core/api/web/index.php';
+	//apiUrl = 'http://localhost/cdsur-core/api/web/index.php';
 	isLoggedin: boolean;
     AuthToken;
     
@@ -24,7 +24,7 @@ export class CdsurApiProvider {
         this.http = http;
         this.isLoggedin = false;
         this.AuthToken = null;
-		events.publish('hideHeader', { isHidden: true });
+		events.publish('user:login', false);
     }
 
     checkToken() {
@@ -34,8 +34,8 @@ export class CdsurApiProvider {
 	    	this.http.post(this.apiUrl+'/securities/user-info', {}, options).subscribe(res => { 
 				if(res.ok){
 					console.log("Check existing TOKEN OK!");
-	                localStorage.setItem('user-info', JSON.stringify(res.json()));
-	                this.events.publish('hideHeader', { isHidden: false});
+	                localStorage.setItem('user-info', JSON.stringify(res.json()));;
+	                this.events.publish('user:login', true);
 	            }
 	            else
 	            {
@@ -64,14 +64,14 @@ export class CdsurApiProvider {
     
     loadUserCredentials() {
         var token = localStorage.getItem('access_token');
-		this.events.publish('hideHeader', { isHidden: false});
+		this.events.publish('user:login', true);
         this.useCredentials(token);
     }
     
     destroyUserCredentials() {
         this.isLoggedin = false;
         this.AuthToken = null;
-        this.events.publish('hideHeader', { isHidden: true});
+        this.events.publish('user:login', false);
         localStorage.clear();
     }
 
@@ -83,6 +83,7 @@ export class CdsurApiProvider {
 			this.http.post(this.apiUrl+'/securities/login', userData, options).subscribe(res => { 
 				if(res.ok){
                     this.storeUserCredentials(res.json().access_token);
+                    this.checkToken();
                     resolve(true);
                 }
                 else
@@ -96,7 +97,31 @@ export class CdsurApiProvider {
 				reject(err);
 			});
 		});
+	}
+
+	signup(email, username, password) {
+		return new Promise((resolve, reject) => {
+			let options = new RequestOptions({ headers: this._getHeaders()});
+			let signUpData = {"email": email, "username": username, "password" : password};
+
+			this.http.post(this.apiUrl+'/securities/signup', signUpData, options).subscribe(res => { 
+				if(res.ok){
+                    resolve(true);
+                }
+                else
+                {
+                    resolve(false);
+                }
+
+			} , (err) =>{
+				reject(err);
+			});
+		});
 	}	
+
+	sendCart() {
+
+	}
 
 	getProducts(categoryId) {
 		var cId = "";
@@ -150,6 +175,4 @@ export class CdsurApiProvider {
 	    return this.http.post(url, body, headers).map(res => res.json()).toPromise();
 		//return this.http.get(this.apiUrl+"/products/search"+params).map(res => res.json()).toPromise();
 	}
-
-	
 }

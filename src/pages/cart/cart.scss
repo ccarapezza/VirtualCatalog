@@ -5,4 +5,22 @@ page-cart {
 		width: 35px;
 		height: 35px;
 	}
+
+	.trash-button{
+		width: 150px;
+	}
+
+	h2{
+		font-size: 1.3rem!important;
+	}
+
+	p{
+		font-size: 1rem!important;
+		color: gray!important;
+		font-style: italic;
+	}
+
+	#common-footer{
+		display: none!important;
+	}
 }

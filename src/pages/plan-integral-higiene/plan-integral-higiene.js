@@ -9,6 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CdsurApiProvider } from '../../providers/cdsur-api/cdsur-api';
+import { SearchResultPage } from '../search-result/search-result';
 /**
  * Generated class for the PlanIntegralHigienePage page.
  *
@@ -16,12 +18,33 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * on Ionic pages and navigation.
  */
 var PlanIntegralHigienePage = (function () {
-    function PlanIntegralHigienePage(navCtrl, navParams) {
+    function PlanIntegralHigienePage(navCtrl, navParams, cdsurApiProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.cdsurApiProvider = cdsurApiProvider;
+        this.categories = [];
     }
     PlanIntegralHigienePage.prototype.ionViewDidLoad = function () {
+        var _this = this;
         console.log('ionViewDidLoad PlanIntegralHigienePage');
+        this.cdsurApiProvider.getCategories(null)
+            .then(function (results) {
+            _this.categories = results;
+        });
+    };
+    PlanIntegralHigienePage.prototype.selectCategory = function (categoryId) {
+        var _this = this;
+        this.cdsurApiProvider.getCategories(categoryId)
+            .then(function (results) {
+            if (results.length != 0) {
+                _this.categories = results;
+            }
+            else {
+                _this.navCtrl.push(SearchResultPage, {
+                    categoryId: categoryId,
+                });
+            }
+        });
     };
     return PlanIntegralHigienePage;
 }());
@@ -31,7 +54,9 @@ PlanIntegralHigienePage = __decorate([
         selector: 'page-plan-integral-higiene',
         templateUrl: 'plan-integral-higiene.html',
     }),
-    __metadata("design:paramtypes", [NavController, NavParams])
+    __metadata("design:paramtypes", [NavController,
+        NavParams,
+        CdsurApiProvider])
 ], PlanIntegralHigienePage);
 export { PlanIntegralHigienePage };
 //# sourceMappingURL=plan-integral-higiene.js.map
