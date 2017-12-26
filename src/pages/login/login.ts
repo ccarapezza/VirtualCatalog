@@ -29,13 +29,8 @@ export class LoginPage {
   }
 
   login() {
-    let loading = this.loadingCtrl.create({
-      spinner: 'hide',
-      content: 'Cargando, Espere por favor...'
-    });
-    loading.present();
+    
   	this.cdsurApiProvider.login(this.userData.username, this.userData.password).then((result) =>{
-      loading.dismiss();
       if(result){
         this.showMessage("Bienvenido!", "Ahora podrá realizar pedidos");
   		  this.navCtrl.push(HomePage);
@@ -43,7 +38,6 @@ export class LoginPage {
         this.showMessage("Acceso Denegado", "Nombre de usuario y/o contraseña incorrectos.");
       }
   	}, (err) =>{
-      loading.dismiss();
       this.showMessage("Ha ocurrido un error", "Verifique su conexión.");
   	});
   }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { LoadingController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -19,7 +20,7 @@ export class CdsurApiProvider {
 	isLoggedin: boolean;
     AuthToken;
     
-    constructor(public http: Http, public events: Events) {
+    constructor(public http: Http, public events: Events, public loadingCtrl: LoadingController) {
 		console.log('Hello CdsurApiProvider Provider');
         this.http = http;
         this.isLoggedin = false;
@@ -31,6 +32,10 @@ export class CdsurApiProvider {
     	if(localStorage.getItem('access_token'))
     	{
 	    	let options = new RequestOptions({ headers: this._getHeaders()});
+	    	let loading = this.loadingCtrl.create({
+		      content: 'Cargando, Espere por favor...'
+		    });
+		    loading.present();
 	    	this.http.post(this.apiUrl+'/securities/user-info', {}, options).subscribe(res => { 
 				if(res.ok){
 					console.log("Check existing TOKEN OK!");
@@ -44,6 +49,8 @@ export class CdsurApiProvider {
 
 			} , (err) =>{
 				this.destroyUserCredentials();
+			}, () => { 
+				loading.dismiss();
 			});
     	}
     	else
@@ -79,7 +86,10 @@ export class CdsurApiProvider {
 		return new Promise((resolve, reject) => {
 			let options = new RequestOptions({ headers: this._getHeaders()});
 			let userData = {"login": username, "password" : password};
-
+			let loading = this.loadingCtrl.create({
+		      content: 'Cargando, Espere por favor...'
+		    });
+		    loading.present();
 			this.http.post(this.apiUrl+'/securities/login', userData, options).subscribe(res => { 
 				if(res.ok){
                     this.storeUserCredentials(res.json().access_token);
@@ -95,6 +105,8 @@ export class CdsurApiProvider {
 			} , (err) =>{
 				this.destroyUserCredentials();
 				reject(err);
+			}, () =>{
+				loading.dismiss();
 			});
 		});
 	}
@@ -103,7 +115,10 @@ export class CdsurApiProvider {
 		return new Promise((resolve, reject) => {
 			let options = new RequestOptions({ headers: this._getHeaders()});
 			let signUpData = {"email": email, "username": username, "password" : password};
-
+		    let loading = this.loadingCtrl.create({
+		      content: 'Cargando, Espere por favor...'
+		    });
+		    loading.present();
 			this.http.post(this.apiUrl+'/securities/signup', signUpData, options).subscribe(res => { 
 				if(res.ok){
                     resolve(true);
@@ -115,6 +130,8 @@ export class CdsurApiProvider {
 
 			} , (err) =>{
 				reject(err);
+			}, () =>{
+				loading.dismiss();
 			});
 		});
 	}	
@@ -122,6 +139,10 @@ export class CdsurApiProvider {
 	sendCart(cart) {
 		return new Promise((resolve, reject) => {
 			let options = new RequestOptions({ headers: this._getHeaders()});
+			let loading = this.loadingCtrl.create({
+		      content: 'Cargando, Espere por favor...'
+		    });
+		    loading.present();
 			this.http.post(this.apiUrl+'/carts/send', {cart: cart}, options).subscribe(res => { 
 				if(res.ok){
                     resolve(true);
@@ -133,6 +154,8 @@ export class CdsurApiProvider {
 
 			} , (err) =>{
 				reject(err);
+			}, ()=>{
+				loading.dismiss();
 			});
 		});
 	}
@@ -176,7 +199,37 @@ export class CdsurApiProvider {
 	 }
 
 	searchProducts(code, description) {
-		var params;
+		return new Promise<any[]>((resolve, reject) => {
+			var params;
+			if(code){
+				params="?code="+code;
+			}else if(description){
+				params="?description="+description;
+			}
+
+			let url = this.apiUrl+"/products/searchpost";
+		    let options = new RequestOptions({ headers: this._getHeaders()});
+		    let body = { 'description' : description};
+			let loading = this.loadingCtrl.create({
+		      content: 'Cargando, Espere por favor...'
+		    });
+		    loading.present();
+			this.http.post(url, body, options).subscribe(res => { 
+				if(res.ok){
+	                resolve(res.json());
+	            }
+	            else
+	            {
+	                resolve(null);
+	            }
+
+			} , (err) =>{
+				reject(err);
+			}, () =>{
+				loading.dismiss();
+			});
+		});
+		/*var params;
 		if(code){
 			params="?code="+code;
 		}else if(description){
@@ -186,7 +239,9 @@ export class CdsurApiProvider {
 		let url = this.apiUrl+"/products/searchpost";
 	    let options = new RequestOptions({ headers: this._getHeaders()});
 	    let body = { 'description' : description};
-	    return this.http.post(url, body, options).map(res => res.json()).toPromise();
+	    return this.http.post(url, body, options).map(res => res.json()).toPromise();*/
 		//return this.http.get(this.apiUrl+"/products/search"+params).map(res => res.json()).toPromise();
+
+
 	}
 }

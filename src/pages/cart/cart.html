@@ -14,8 +14,13 @@
 
 
 <ion-content>
-	<ion-list>
-		<ion-list-header>Productos</ion-list-header>
+	<div style="text-align: center;" *ngIf="getCartData().length == 0" margin padding>
+		<div class="item item-image" margin padding>
+		    <img src="assets/images/cart-emtpy.png" margin>
+		</div>
+		<h3 style="color: gray;">El carro está <strong>VACÍO</strong></h3>
+	</div>
+	<ion-list *ngIf="getCartData().length != 0">
 		<ion-item-sliding *ngFor="let productRow of getCartData(); let i = index" [attr.data-index]="i">
 			<ion-item >
 				<ion-thumbnail  item-start>
@@ -32,7 +37,7 @@
 				</div>
 			</ion-item>
 			<ion-item-options side="right">
-				<button color="danger" ion-button class="trash-button" (click)="removeProduct(product)">
+				<button color="danger" ion-button class="trash-button" (click)="removeProduct(product)" >
 					<ion-icon name="trash"></ion-icon>
 				</button>
 			</ion-item-options>
@@ -50,7 +55,7 @@
                 </button>
             </ion-col>
             <ion-col col-6 no-padding style="text-align: center;">
-                <button ion-button outline color="primary"  (click)="sendCart()">
+                <button ion-button outline color="primary"  (click)="sendCart()" [disabled]="getCartData().length == 0">
 				  <ion-icon name="send" right-margin></ion-icon>
 				  <span style="margin-left: 10px;">Enviar Pedido</span>
 				</button>

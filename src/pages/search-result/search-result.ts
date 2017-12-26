@@ -31,10 +31,9 @@ export class SearchResultPage {
     var description = this.navParams.get('description');
     var categoryId = this.navParams.get('categoryId');
     if(code || description){
-      this.cdsurApiProvider.searchProducts(code, description)
-      .then(results => {
+      this.cdsurApiProvider.searchProducts(code, description).then(results => {
         this.products = results;
-      })  
+      });
     }else if(categoryId){
       this.cdsurApiProvider.getProducts(categoryId)
       .then(results => {

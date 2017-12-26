@@ -17,6 +17,7 @@ import { CartProvider } from '../../providers/cart/cart';
 })
 export class ProductDetailPage {
   product = {};
+  quantity = 1;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public cdsurApiProvider: CdsurApiProvider, public cartProvider: CartProvider) {
   }
@@ -27,10 +28,20 @@ export class ProductDetailPage {
     this.cdsurApiProvider.getProduct(code)
     .then(results => {
       this.product = results;
+      this.quantity = 1;
     });
   }
 
+  oneMore(){
+    this.quantity++;
+  }
+
+  oneLess(){
+    if(this.quantity>1)
+      this.quantity--;
+  }
+
   addProduct(product) {
-    this.cartProvider.addProduct(product);
+    this.cartProvider.addProduct(product, this.quantity);
   }
 }

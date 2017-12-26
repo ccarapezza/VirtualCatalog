@@ -27,6 +27,16 @@
   <img src="http://www.cdsurargentina.com.ar/cdsur-core/frontend/web/products-images/{{product.image_filename}}">
 
   <ion-card-content>
+    <ion-item >
+      <ion-label class="label label-md">
+        <h2>Cantidad:</h2>
+      </ion-label>
+      <div item-right>
+        <ion-icon name="remove-circle" (click)="oneLess()"></ion-icon>
+        <input [(ngModel)]="quantity" type="number" class="product-quantity">
+        <ion-icon name="add-circle" (click)="oneMore()"></ion-icon>
+      </div>
+    </ion-item>
     <button class="button-cds" ion-button block icon-left margin-vertical (click)="addProduct(product)">Agregar al pedido</button>
   </ion-card-content>
 
