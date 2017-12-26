@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { LoadingController } from 'ionic-angular';
 import { CdsurApiProvider } from '../../providers/cdsur-api/cdsur-api';
 import { HomePage } from '../home/home';
 
@@ -21,7 +20,7 @@ export class LoginPage {
   responseData : any;
   userData = {"username":"", "password": ""};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public cdsurApiProvider: CdsurApiProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public cdsurApiProvider: CdsurApiProvider, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
