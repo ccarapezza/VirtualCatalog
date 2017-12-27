@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AlertController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { LoadingController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
@@ -15,12 +16,12 @@ import { Events } from 'ionic-angular';
 */
 @Injectable()
 export class CdsurApiProvider {
-	//apiUrl = 'http://www.cdsurargentina.com.ar/cdsur-core/api/web/index.php';
-	apiUrl = 'http://localhost/cdsur-core/api/web/index.php';
+	apiUrl = 'http://www.cdsurargentina.com.ar/cdsur-core/api/web/index.php';
+	//apiUrl = 'http://localhost/cdsur-core/api/web/index.php';
 	isLoggedin: boolean;
     AuthToken;
     
-    constructor(public http: Http, public events: Events, public loadingCtrl: LoadingController) {
+    constructor(public http: Http, public events: Events, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
 		console.log('Hello CdsurApiProvider Provider');
         this.http = http;
         this.isLoggedin = false;
@@ -132,6 +133,7 @@ export class CdsurApiProvider {
 				reject(err);
 			}, () =>{
 				loading.dismiss();
+				this.destroyUserCredentials();
 			});
 		});
 	}	
@@ -243,5 +245,14 @@ export class CdsurApiProvider {
 		//return this.http.get(this.apiUrl+"/products/search"+params).map(res => res.json()).toPromise();
 
 
+	}
+
+	showMessage(title, message = "") {
+		let alert = this.alertCtrl.create({
+		  title: title,
+		  message: message,
+		  buttons: ['Ok']
+		});
+		alert.present();
 	}
 }

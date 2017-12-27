@@ -1,3 +1,4 @@
+import { AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CartProvider } from '../../providers/cart/cart';
@@ -19,7 +20,7 @@ import { Events } from 'ionic-angular';
 })
 export class CartPage {
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public cartProvider: CartProvider, public cdsurApiProvider: CdsurApiProvider, public events: Events) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public cartProvider: CartProvider, public cdsurApiProvider: CdsurApiProvider, public events: Events, public alertCtrl: AlertController) {
 	}
 
 	getCartData(){
@@ -44,12 +45,37 @@ export class CartPage {
 	}
 
 	sendCart(){
-		this.cdsurApiProvider.sendCart(this.cartProvider.getCartData());
+		this.cdsurApiProvider.sendCart(this.cartProvider.getCartData()).then((result) =>{
+	      if(result){
+	        this.showMessage("Enviado", "Su pedido ha sido enviado");
+	      }else{
+	        this.showMessage("No Enviado", "Su pedido no ha sido enviado, contactese con el administrador");
+	      }
+	  	}, (err) =>{
+	      this.showMessage("Ha ocurrido un error", "Verifique su conexión.");
+	  	});
 		this.cartProvider.clearCart();
 	}
 
 	clearCart(){
-		this.cartProvider.clearCart();
+		let alert = this.alertCtrl.create({
+		title: 'Confirmación',
+		message: 'Esta seguro que desea vaciar el carro?',
+		buttons: [
+		  {
+		    text: 'SI',
+		    handler: () => {
+		      this.cartProvider.clearCart();
+		    }
+		  },
+		  {
+		    text: 'NO',
+		    role: 'cancel',
+		  },
+		]
+		});
+		alert.present();
+		
 	}
 
 	ionViewDidLoad() {
@@ -60,5 +86,14 @@ export class CartPage {
 	ionViewDidLeave() {
 		console.log('ionViewDidLeave CartPage');
 		this.events.publish('template:show-footer', true);
+	}
+
+	showMessage(title, message = "") {
+		let alert = this.alertCtrl.create({
+		  title: title,
+		  message: message,
+		  buttons: ['Ok']
+		});
+		alert.present();
 	}
 }

@@ -26,23 +26,20 @@ export class SignupPage {
 	}
 
 	signup() {
-		let loading = this.loadingCtrl.create({
-			spinner: 'hide',
-			content: 'Cargando, Espere por favor...'
-		});
-		loading.present();
-		this.cdsurApiProvider.signup(this.signupForm.email, this.signupForm.username, this.signupForm.password).then((result) =>{
-			loading.dismiss();
-			if(result){
-				this.showMessage("Usuario Registrado!", "Revise su email para confirmar la cuenta");
-				this.navCtrl.push(HomePage);
-			}else{
-				this.showMessage("Error", "Comuniquese con el administrador.");
-			}
-		}, (err) =>{
-			loading.dismiss();
-			this.showMessage("Ha ocurrido un error", "Verifique su conexión.");
-		});
+		if(this.signupForm.password==this.signupForm.passwordCheck){
+			this.cdsurApiProvider.signup(this.signupForm.email, this.signupForm.username, this.signupForm.password).then((result) =>{
+				if(result){
+					this.showMessage("Usuario Registrado!", "Revise su email para confirmar la cuenta");
+					this.navCtrl.push(HomePage);
+				}else{
+					this.showMessage("Error", "Comuniquese con el administrador.");
+				}
+			}, (err) =>{
+				this.showMessage("Ha ocurrido un error", "Verifique su conexión.");
+			});
+		}else{
+			this.showMessage("Validación", "Las contraseñas no coinciden.");
+		}
 	}
 
 	showMessage(title, message = "") {

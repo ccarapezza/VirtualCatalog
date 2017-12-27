@@ -1,3 +1,4 @@
+import { AlertController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -12,7 +13,7 @@ import 'rxjs/add/operator/map';
 export class CartProvider {
 	public cart: any;
 
-	constructor(public http: Http) {
+	constructor(public http: Http, public alertCtrl: AlertController) {
 		console.log('Hello CartProvider Provider');
 		this.loadLocalStorageCartData();
 	}
@@ -82,6 +83,15 @@ export class CartProvider {
 		}
 
 		return index;
+	}
+
+	showMessage(title, message = "") {
+		let alert = this.alertCtrl.create({
+		  title: title,
+		  message: message,
+		  buttons: ['Ok']
+		});
+		alert.present();
 	}
 
 }

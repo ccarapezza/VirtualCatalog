@@ -49,7 +49,7 @@
     <ion-grid>
         <ion-row no-padding no-margin>
             <ion-col col-6 no-padding style="text-align: center;">
-                <button ion-button outline color="danger" (click)="clearCart()">
+                <button ion-button outline color="danger" (click)="clearCart()" [disabled]="getCartData().length == 0">
                 	<ion-icon name="trash"></ion-icon>
                 	<span style="margin-left: 10px;">Vaciar Carro</span>
                 </button>
