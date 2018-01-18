@@ -105,7 +105,12 @@ export class CdsurApiProvider {
 
 			} , (err) =>{
 				this.destroyUserCredentials();
-				reject(err);
+				if(err.status == 403){
+					resolve(false);
+				}else{
+					reject(err);
+				}
+				loading.dismiss();
 			}, () =>{
 				loading.dismiss();
 			});

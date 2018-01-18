@@ -1,10 +1,10 @@
 page-home {
 	#fondo {			
-		background-image: url("assets/images/FondoMovil.png");
+		background-image: url('../../assets/images/FondoMovil.png');
 		background-repeat:no-repeat;
 		-webkit-background-size: cover;
- 		 -moz-background-size: cover;
- 		 -o-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
 		background-position: center center;
 		background-attachment: fixed;
 		width:100%;	
@@ -12,31 +12,31 @@ page-home {
 	}
 
 	.botonHome {
-	background: #48a0c6; 
-	background: -moz-linear-gradient(-45deg, #48a0c6 8%, #2f4272 100%); 
-	background: -webkit-linear-gradient(-45deg, #48a0c6 8%,#2f4272 100%); 
-	background: linear-gradient(135deg, #48a0c6 8%,#2f4272 100%); 
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48a0c6', endColorstr='#2f4272',GradientType=1 );
-
-	box-shadow: 0px 5px 10px #454545;
+		background: #48a0c6; 
+		background: -moz-linear-gradient(-45deg, #48a0c6 8%, #2f4272 100%); 
+		background: -webkit-linear-gradient(-45deg, #48a0c6 8%,#2f4272 100%); 
+		background: linear-gradient(135deg, #48a0c6 8%,#2f4272 100%); 
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48a0c6', endColorstr='#2f4272',GradientType=1 );
+		box-shadow: 0px 5px 10px #454545;
 	}
 
 
 	#cuadradoAzul { 
-    display: inline-block;
-    width:100%;
-    min-width: 100%;
-    max-height: 40%;
-    height: 50%;   
-    margin-top: 50px;    
-    position:absolute;
-    box-shadow: 0px 10px 50px black;
-    z-index: -1;
-    top:400px;
-    left: 0px;
+		display: inline-block;
+		width:100%;
+		min-width: 100%;
+		max-height: 40%;
+		height: 50%;   
+		margin-top: 50px;    
+		position:absolute;
+		box-shadow: 0px 10px 50px black;
+		z-index: -1;
+		top:400px;
+		left: 0px;
 	}
 
-
-
-    
+	/*ion-content{
+		background-image: url('../../assets/images/FondoMovil.png');
+		background-size: 100%;
+	}*/
 }
