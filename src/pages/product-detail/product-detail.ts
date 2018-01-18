@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 import { CdsurApiProvider } from '../../providers/cdsur-api/cdsur-api';
 import { CartProvider } from '../../providers/cart/cart';
 
@@ -19,7 +20,7 @@ export class ProductDetailPage {
   product = {};
   quantity = 1;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public cdsurApiProvider: CdsurApiProvider, public cartProvider: CartProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public cdsurApiProvider: CdsurApiProvider, public cartProvider: CartProvider, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -42,6 +43,20 @@ export class ProductDetailPage {
   }
 
   addProduct(product) {
-    this.cartProvider.addProduct(product, this.quantity);
+    if(localStorage.getItem('access_token'))
+    {
+      this.cartProvider.addProduct(product, this.quantity);
+    }else{
+      this.showMessage("Necesita registrarse", "Debe crearse un usuario para utilizar esta función");
+    }
+  }
+
+  showMessage(title, message = "") {
+    let alert = this.alertCtrl.create({
+      title: title,
+      message: message,
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 }
