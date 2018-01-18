@@ -1,13 +1,21 @@
 
 
-<ion-content padding>
+<ion-content id="fondo" padding>
+		
 	<div class="item item-image logo-container">
 	    <img src="assets/images/CDS-logo.png" class="logo" margin>
 	</div>
 
-	<button ion-button block icon-left margin-vertical (click)="scanQr()"><ion-icon name="qr-scanner"></ion-icon> Escanear producto</button>
-	<button ion-button block icon-left margin-vertical (click)="goToPlanIntegralHigienePage()"><ion-icon name="repeat"></ion-icon> Plan Integral Higiene</button>
-	<button ion-button block icon-left margin-vertical (click)="goToSearchPage()"><ion-icon name="search"></ion-icon> Buscar productos</button>
-
+	<div id="contenedor" block>
+		<button ion-button class="botonHome" block icon-left margin-vertical (click)="scanQr()"><ion-icon name="qr-scanner"></ion-icon> Escanear producto</button>
+		<button ion-button class="botonHome" block icon-left margin-vertical (click)="goToPlanIntegralHigienePage()"><ion-icon name="repeat"></ion-icon> Plan Integral Higiene</button>
+		<button ion-button class="botonHome" block icon-left margin-vertical (click)="goToSearchPage()"><ion-icon name="search"></ion-icon> Buscar productos</button>		
+	</div>
 	
+		<img src="assets/images/cuadradoMovil.png" id="cuadradoAzul"  /> 
+	
+	
+    
+
 </ion-content>
+
