@@ -44,3 +44,30 @@ ion-footer{
     box-shadow: 0px 10px 50px black;
     z-index: 30;
 }
+
+#fondo {            
+        background-image: url('../../assets/images/fondoRegistrarse.png');
+        background-repeat:no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+        width:100%; 
+        height:100%;            
+    }
+
+#registrarText {
+    margin-top: 20%;
+    margin-bottom: 5%;
+}
+
+.btnColor {
+    background: #48a0c6; 
+    background: -moz-linear-gradient(-45deg, #48a0c6 8%, #2f4272 100%); 
+    background: -webkit-linear-gradient(-45deg, #48a0c6 8%,#2f4272 100%); 
+    background: linear-gradient(135deg, #48a0c6 8%,#2f4272 100%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48a0c6', endColorstr='#2f4272',GradientType=1 );
+    box-shadow: 0px 5px 10px #454545;
+    margin-bottom: 5%;
+}
