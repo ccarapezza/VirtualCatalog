@@ -1,4 +1,5 @@
 import { AlertController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -13,7 +14,7 @@ import 'rxjs/add/operator/map';
 export class CartProvider {
 	public cart: any;
 
-	constructor(public http: Http, public alertCtrl: AlertController) {
+	constructor(public http: Http, public alertCtrl: AlertController, private toastCtrl: ToastController) {
 		console.log('Hello CartProvider Provider');
 		this.loadLocalStorageCartData();
 	}
@@ -56,6 +57,8 @@ export class CartProvider {
 		}
 
 		localStorage.setItem('cart', JSON.stringify(this.cart));
+
+		this.showToast("Se han añadido "+quantity+" productos.");
 	}
 
 	updateCartLocalStorage(){
@@ -70,6 +73,8 @@ export class CartProvider {
 		}
 
 		localStorage.setItem('cart', JSON.stringify(this.cart));
+
+		this.showToast("El producto se ha eliminado.");
 	}
 
 	findProductInCart(product){
@@ -83,6 +88,16 @@ export class CartProvider {
 		}
 
 		return index;
+	}
+
+	showToast(message){
+		let toast = this.toastCtrl.create({
+			message: message,
+			duration: 3000,
+			position: 'middle'
+		});
+
+		toast.present();
 	}
 
 	showMessage(title, message = "") {
