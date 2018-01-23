@@ -13,14 +13,16 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content id="fondoSearch" padding>
 	<ion-item>
 		<ion-input #code placeholder="Código" clearInput></ion-input>
 	</ion-item>
 	<ion-item>
 		<ion-input #description placeholder="Descripción" clearInput></ion-input>
 	</ion-item>
-	<button ion-button block icon-left (click)="search(code.value, description.value)"><ion-icon name="search"></ion-icon>Buscar</button>
+	<div id="contenedorBtn">
+		<button class="btnSearch" idion-button block (click)="search(code.value, description.value)"><ion-icon name="search"></ion-icon>Buscar</button>
+	</div>
 </ion-content>
 
 <ion-footer></ion-footer>

@@ -45,21 +45,41 @@ ion-footer{
     z-index: 30;
 }
 
-#fondo {            
-        background-image: url('../../assets/images/fondoRegistrarse.png');
-        background-repeat:no-repeat;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-position: center center;
-        background-attachment: fixed;
-        width:100%; 
-        height:100%;            
+#welcome {            
+    background-image: url('../../assets/images/fondoRegistrarse.png');
+    background-repeat:no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    width:100%; 
+    height:100%;            
     }
+
+#welcome-bis {
+    background-image: url('../../assets/images/fondoRegistrarse.png');
+    background-repeat:no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    width:100%; 
+    height:100%;
+}
 
 #registrarText {
     margin-top: 20%;
     margin-bottom: 5%;
+}
+
+#contenedorBtn {
+    width:100%;   
+    height: 9%;
+    text-align: center;    
+    display: block;
+    margin:auto;
 }
 
 .btnColor {
@@ -70,4 +90,15 @@ ion-footer{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48a0c6', endColorstr='#2f4272',GradientType=1 );
     box-shadow: 0px 5px 10px #454545;
     margin-bottom: 5%;
+    width:27rem;
+    height: 4rem;
+    margin:auto;
+}
+
+.btnColor:active {
+    width:26rem;
+    height: 3.8rem;
+    margin: auto;
+    line-height: 2;
+        
 }
