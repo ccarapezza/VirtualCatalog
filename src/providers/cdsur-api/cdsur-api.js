@@ -22,8 +22,8 @@ var CdsurApiProvider = (function () {
     function CdsurApiProvider(http, events) {
         this.http = http;
         this.events = events;
-        //apiUrl = 'http://www.cdsurargentina.com.ar/cdsur-core/api/web/index.php';
-        this.apiUrl = 'http://localhost/cdsur-core/api/web/index.php';
+        apiUrl = 'http://www.cdsurargentina.com.ar/cdsur-core/api/web/';
+        //this.apiUrl = 'http://localhost/cdsur-core/api/web/';
         console.log('Hello CdsurApiProvider Provider');
         this.http = http;
         this.isLoggedin = false;
