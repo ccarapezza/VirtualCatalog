@@ -27,6 +27,7 @@
   <img src="http://www.cdsurargentina.com.ar/cdsur-core/frontend/web/products-images/{{product.image_filename}}">
 
   <ion-card-content>
+    <div id="fondoProductos">
     <ion-item >
       <ion-label class="label label-md">
         <h2>Cantidad:</h2>
@@ -37,6 +38,7 @@
         <ion-icon name="add-circle" (click)="oneMore()"></ion-icon>
       </div>
     </ion-item>
+  </div>
     <button ion-button block icon-left margin-vertical (click)="addProduct(product)">Agregar al pedido</button>
 
   </ion-card-content>

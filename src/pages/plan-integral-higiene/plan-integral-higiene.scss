@@ -1,3 +1,22 @@
 page-plan-integral-higiene {
 
+
+	#fondo {			
+		background-image: url('../../assets/images/fondoPlanIntegral2.png');
+		background-repeat:no-repeat;
+		background-size: cover;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-position: center center;
+		background-attachment: fixed;
+		width:100%;	
+		height:100%;			
+	}
+
+	#contenido {
+		margin-top: 27rem;
+	}
+
+
 }

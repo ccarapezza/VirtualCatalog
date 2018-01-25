@@ -12,7 +12,7 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content id="fondo" padding>
 <form #form="ngForm" (ngSubmit)="signup(form)" novalidate>
 <ion-list>
   <ion-item>
@@ -31,11 +31,12 @@
   </ion-item>
 
   <ion-item>
-    <ion-label fixed>Repita Contraseña</ion-label>
+    <ion-label fixed>Contraseña</ion-label>
     <ion-input type="password" name="passwordCheck" [(ngModel)]="signupForm.passwordCheck"></ion-input>
   </ion-item>
-
-  <button type="submit" ion-button block color="primary">Aceptar</button>
+<div id="contenedorBtn">
+  <button class="btnAcept" type="submit" ion-button block color="primary">Aceptar</button>
+</div>
 
 </ion-list>
 </form>

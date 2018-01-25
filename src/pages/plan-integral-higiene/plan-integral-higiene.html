@@ -16,19 +16,21 @@
 </ion-header>
 
 
-<ion-content padding>
-	<div class="item item-image logo-container">
+<ion-content id="fondo" padding>
+	<!--<div class="item item-image logo-container">
 	    <img src="assets/images/logo-360.png" class="logo">
+	</div> -->
+	<div id="contenido" >
+		<ion-list>
+			<ion-list-header id="header">
+			Seleccione el rubro
+			</ion-list-header>
+			<ion-item id="listStyle" *ngFor="let category of categories" (click)="selectCategory(category.id)">
+				<ion-icon name="arrow-dropright-circle" item-start></ion-icon>
+				{{ category.name }}
+			</ion-item>
+		</ion-list>
 	</div>
-	<ion-list>
-		<ion-list-header>
-		Seleccione el rubro
-		</ion-list-header>
-		<ion-item *ngFor="let category of categories" (click)="selectCategory(category.id)">
-			<ion-icon name="arrow-dropright-circle" item-start></ion-icon>
-			{{ category.name }}
-		</ion-item>
-	</ion-list>
 </ion-content>
 
 <ion-footer></ion-footer>
