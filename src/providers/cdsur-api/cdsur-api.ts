@@ -18,13 +18,11 @@ import { Events } from 'ionic-angular';
 export class CdsurApiProvider {
 	apiUrl = 'http://www.cdsurargentina.com.ar/cdsur-core/api/web/index.php';
 	//apiUrl = 'http://localhost/cdsur-core/api/web/index.php';
-	isLoggedin: boolean;
     AuthToken;
     
     constructor(public http: Http, public events: Events, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
 		console.log('Hello CdsurApiProvider Provider');
         this.http = http;
-        this.isLoggedin = false;
         this.AuthToken = null;
 		events.publish('user:login', false);
     }
@@ -66,18 +64,26 @@ export class CdsurApiProvider {
     }
     
     useCredentials(token) {
-        this.isLoggedin = true;
         this.AuthToken = token;
     }
     
     loadUserCredentials() {
         var token = localStorage.getItem('access_token');
-		this.events.publish('user:login', true);
         this.useCredentials(token);
     }
+
+    _getHeaders() {
+	    let headers = new Headers();
+	    headers.append('Content-Type', 'application/json');
+	    //headers.append('X-Requested-With', 'XMLHttpRequest');
+	    this.loadUserCredentials();
+	    if(this.AuthToken){
+	        headers.append('cdsur-token', 'Bearer ' +this.AuthToken);
+	    }
+	    return headers;
+	 }
     
     destroyUserCredentials() {
-        this.isLoggedin = false;
         this.AuthToken = null;
         this.events.publish('user:login', false);
         localStorage.clear();
@@ -105,7 +111,12 @@ export class CdsurApiProvider {
 
 			} , (err) =>{
 				this.destroyUserCredentials();
-				reject(err);
+				if(err.status == 403){
+					resolve(false);
+				}else{
+					reject(err);
+				}
+				loading.dismiss();
 			}, () =>{
 				loading.dismiss();
 			});
@@ -178,27 +189,54 @@ export class CdsurApiProvider {
 		if(parentId){
 			pId = "/"+parentId;
 		}
-		return this.http.get(this.apiUrl+'/categories/parent'+pId)
+
+	    return new Promise<any[]>((resolve, reject) => {
+			let loading = this.loadingCtrl.create({
+		      content: 'Cargando, Espere por favor...'
+		    });
+		    loading.present();
+			this.http.get(this.apiUrl+'/categories/parent'+pId).subscribe(res => { 
+				if(res.ok){
+	                resolve(res.json());
+	            }
+	            else
+	            {
+	                resolve(null);
+	            }
+
+			} , (err) =>{
+				reject(err);
+			}, () =>{
+				loading.dismiss();
+			});
+		});
+
+		/*return this.http.get(this.apiUrl+'/categories/parent'+pId)
 			.map(res => res.json())
-			.toPromise();
+			.toPromise();*/
 	}
 
 	getProduct(code) {
-		return this.http.get(this.apiUrl+'/products/code/'+code)
-			.map(res => res.json())
-			.toPromise();
+		return new Promise<any[]>((resolve, reject) => {
+			let loading = this.loadingCtrl.create({
+		      content: 'Cargando, Espere por favor...'
+		    });
+		    loading.present();
+			this.http.get(this.apiUrl+'/products/code/'+code).subscribe(res => { 
+				if(res.ok){
+	                resolve(res.json());
+	            }
+	            else
+	            {
+	                resolve(null);
+	            }
+			} , (err) =>{
+				reject(err);
+			}, () =>{
+				loading.dismiss();
+			});
+		});
 	}
-
-	_getHeaders() {
-	    let headers = new Headers();
-	    headers.append('Content-Type', 'application/json');
-	    //headers.append('X-Requested-With', 'XMLHttpRequest');
-	    this.loadUserCredentials();
-	    if(this.AuthToken){
-	        headers.append('cdsur-token', 'Bearer ' +this.AuthToken);
-	    }
-	    return headers;
-	 }
 
 	searchProducts(code, description) {
 		return new Promise<any[]>((resolve, reject) => {

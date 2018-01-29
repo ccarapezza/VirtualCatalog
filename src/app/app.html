@@ -9,10 +9,13 @@
 		<div class="item item-image logo-container">
 		    <img src="assets/images/logo.png" class="logo" margin>
 		</div>
-		<div>Registrese para poder realizar sus pedidos</div>
-
-		<button ion-button block class="marginTop" (click)="signup()">Registrarse</button>
-		<button ion-button block color="lightprimary" (click)="login()">Login</button>
+		<div id="registrarText">Registrese para poder realizar sus pedidos</div>
+		<div id="contenedorBtn">
+			<button ion-button block class="marginTop btnColor" (click)="signup()">Registrarse</button>
+		</div>
+		<div id="contenedorBtn">
+			<button ion-button block class="btnColor" (click)="login()">Login</button>
+		</div>
 	</ion-content>
 	<ion-content padding id="welcome-bis" *ngIf="isUserLogged">
 		<div class="item item-image logo-container">
@@ -23,7 +26,7 @@
 		<div>Está logueado como: <strong>{{getUsername()}}</strong></div> 
 		<div>Email: <strong>{{getUserEmail()}}</strong></div> 
 		<br/>
-		<button ion-button block class="marginTop" (click)="logout()">Cerrar sesión</button>
+		<button ion-button block class="marginTop btnColor" (click)="logout()">Cerrar sesión</button>
 	</ion-content>
 
 </ion-menu>

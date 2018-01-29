@@ -5,7 +5,6 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Ingresar</ion-title>
   </ion-navbar>
@@ -13,7 +12,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content id="fondo" padding>
 <ion-list>
 
   <ion-item>
@@ -25,8 +24,9 @@
     <ion-label fixed>Contraseña</ion-label>
     <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
   </ion-item>
-
-  <button ion-button block color="primary" (click)="login()">Login</button>
+  <div id="contenedorBtn">
+    <button class="btnLogin" idion-button block (click)="login()">Login</button>
+  </div>
 
 </ion-list>
 </ion-content>
