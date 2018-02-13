@@ -2,7 +2,7 @@ page-plan-integral-higiene {
 
 
 	#fondo {			
-		background-image: url('../../assets/images/fondoPlanIntegral2.png');
+		background-image: url('../../assets/images/fondoPlanIntegral.png');
 		background-repeat:no-repeat;
 		background-size: cover;
 		-webkit-background-size: cover;
@@ -14,9 +14,60 @@ page-plan-integral-higiene {
 		height:100%;			
 	}
 
-	#contenido {
-		margin-top: 27rem;
+	/* 2 columnas para tablets */
+@media (min-width: 700px) {
+	#fondo  {
+		background-image: url('../../assets/images/fondoPlanIntegralTablet.png');
+		background-repeat:no-repeat;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-position: center center;
+		background-attachment: fixed;		
 	}
+}
+
+/* 4 columnas para grandes dispositivos*/
+@media (min-width: 1050px) {
+	#fondo  {
+		background-image: url('../../assets/images/fondoPlanIntegralMonitor.png');
+		background-repeat:no-repeat;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-position: center center;
+		background-attachment: fixed;	
+	}
+}
+
+
+#contenido {
+	margin-top: 28rem;
+}	
+
+@media (min-height: 730px) {
+	#contenido {
+		margin-top: 33rem;
+	}	
+}
+
+@media (min-height: 800px) {
+	#contenido {
+		margin-top: 36rem;
+	}	
+}
+
+@media (min-height: 1020px) {
+	#contenido {
+		margin-top: 39rem;
+	}	
+}
+
+@media (min-height: 1300px) {
+	#contenido {
+		margin-top: 55rem;
+	}	
+}
 
 
 }

@@ -7,10 +7,37 @@ page-home {
 		-moz-background-size: cover;
 		-o-background-size: cover;
 		background-position: center center;
-		background-attachment: fixed;
-		width:100%;	
-		height:100%;			
+		background-attachment: fixed;		
+		max-width: 100%;
+		display: inline-block;			
 	}
+
+
+/* 2 columnas para tablets */
+@media (min-width: 700px) {
+	#fondo  {
+		background-image: url('../../assets/images/FondoTablet.png');
+		background-repeat:no-repeat;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-position: center center;
+		background-attachment: fixed;		
+	}
+}
+
+/* 4 columnas para grandes dispositivos*/
+@media (min-width: 960px) {
+	#fondo  {
+		background-image: url('../../assets/images/FondoMonitor.png');
+		background-repeat:no-repeat;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-position: center center;
+		background-attachment: fixed;	
+	}
+}
 
 	#contenedor {
     width:100%;   
