@@ -27,7 +27,7 @@ page-home {
 }
 
 /* 4 columnas para grandes dispositivos*/
-@media (min-width: 960px) {
+@media (min-width: 1200px) {
 	#fondo  {
 		background-image: url('../../assets/images/FondoMonitor.png');
 		background-repeat:no-repeat;
