@@ -15,10 +15,10 @@
 
 <ion-content id="fondoSearch" padding>
 	<ion-item>
-		<ion-input #code placeholder="Código" clearInput></ion-input>
+		<ion-input class="styleInput" #code placeholder="Código" clearInput></ion-input>
 	</ion-item>
 	<ion-item>
-		<ion-input #description placeholder="Descripción" clearInput></ion-input>
+		<ion-input class="styleInput" #description placeholder="Descripción" clearInput></ion-input>
 	</ion-item>
 	<div id="contenedorBtn">
 		<button class="btnSearch" idion-button block (click)="search(code.value, description.value)"><ion-icon name="search"></ion-icon>Buscar</button>

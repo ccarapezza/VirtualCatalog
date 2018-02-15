@@ -31,7 +31,7 @@ page-search {
 	    font-weight: 500;
 	    text-transform: uppercase;
 	    color: #fff;
-		margin-top: 2rem;
+		margin-top: 4rem;
 	}
 
 	.btnSearch:active {
@@ -40,6 +40,96 @@ page-search {
 		display: inline-block;
 	}
 
+	/* 2 columnas para tablets */
+@media (min-width: 700px) {
+	#fondoSearch  {
+		background-image: url('../../assets/images/fondoSearchTablet.png');
+		background-repeat:no-repeat;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-position: center center;
+		background-attachment: fixed;		
+	}
+
+	.btnSearch {
+		background: #48a0c6; 
+		background: -moz-linear-gradient(-45deg, #48a0c6 8%, #2f4272 100%); 
+		background: -webkit-linear-gradient(-45deg, #48a0c6 8%,#2f4272 100%); 
+		background: linear-gradient(135deg, #48a0c6 8%,#2f4272 100%); 
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48a0c6', endColorstr='#2f4272',GradientType=1 );
+		box-shadow: 0px 5px 10px #454545;
+		width:25rem;
+		height: 5rem;
+		line-height: 2.5;
+		text-align: center;
+		margin-top:9rem;
+		border-radius: 2px;
+	    overflow: hidden;	    
+	    font-size: 1.8rem;
+	    font-weight: 500;
+	    text-transform: uppercase;
+	    color: #fff;		
+	}
+
+	.btnSearch:active {
+		width:23rem;
+		height: 4.3rem;
+		display: inline-block;
+	}
+
+	.styleInput {
+		font-size: 2.7rem;
+		margin-top: 30px;
+	}	
+}
+
+@media (min-height: 1300px) {
+	.btnSearch {
+		background: #48a0c6; 
+		background: -moz-linear-gradient(-45deg, #48a0c6 8%, #2f4272 100%); 
+		background: -webkit-linear-gradient(-45deg, #48a0c6 8%,#2f4272 100%); 
+		background: linear-gradient(135deg, #48a0c6 8%,#2f4272 100%); 
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48a0c6', endColorstr='#2f4272',GradientType=1 );
+		box-shadow: 0px 5px 10px #454545;
+		width:35rem;
+		height: 7rem;
+		line-height: 2.5;
+		text-align: center;
+		margin-top:9rem;
+		border-radius: 2px;
+	    overflow: hidden;	    
+	    font-size: 2.3rem;
+	    font-weight: 500;
+	    text-transform: uppercase;
+	    color: #fff;		
+	}
+
+	.btnSearch:active {
+		width:23rem;
+		height: 4.3rem;
+		display: inline-block;
+	}
+
+	.styleInput {
+		font-size: 3.2rem;
+		margin-top: 30px;
+	}
+}
+
+/* 4 columnas para grandes dispositivos*/
+@media (min-width: 1200px) {
+	#fondoSearch  {
+		background-image: url('../../assets/images/fondoSearchMonitor.png');
+		background-repeat:no-repeat;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-position: center center;
+		background-attachment: fixed;	
+	}
+}
+	
 
 	#contenedorBtn {
 		width:100%;
